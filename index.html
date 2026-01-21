@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base target="_top">
+    <meta charset="utf-8">
+    <title>kPhone Waitlist</title>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -293,7 +294,7 @@
       
       </div>
 
-      <p>We designed the kPhone to be the perfect middle ground. It is an age-appropriate <strong>phone in a wearable design</strong> that gives kids the independence they crave, and parents the oversight they need.</p>
+      <p>We designed the kPhone to be the perfect middle ground. It is an age-appropriate <strong>phone in a wrist-worn design</strong> that gives kids the independence they crave, and parents the oversight they need.</p>
       <p>With the kPhone, there are no browsers. No TikTok. No strangers sending friend requests. It is a closed ecosystem focused entirely on safety and family connection.</p>
       
       <p style="margin-top: 40px; margin-bottom: 40px; font-weight: 600; text-align: left;">Here is how the kPhone seamlessly fits into your family’s daily routine to give you total peace of mind:</p>
@@ -350,7 +351,7 @@
           <p>Secure a safer start for your child.</p>
         </div>
 
-        <form id="waitlistForm" onsubmit="handleFormSubmit(event)">
+        <form id="waitlistForm" name="waitlistForm">
           
           <div class="form-group">
             <label>Full Name</label>
@@ -401,29 +402,38 @@
     </div>
 
     <script>
-      function handleFormSubmit(e) {
-        e.preventDefault(); 
-        var form = e.target;
-        var btn = document.getElementById("submitBtn");
-        var origText = btn.innerText;
+      // -------------------------------------------------------------
+      // IMPORTANT: PASTE YOUR GOOGLE SCRIPT URL BELOW
+      // -------------------------------------------------------------
+      var scriptURL = "https://script.google.com/macros/s/AKfycbwfSVFDeQLMqRKITmyHNNP-cYJYuFac66VgZRH7t1xurpk4-K95xHkKkiteKu31e8KZ/exec";
+
+      var form = document.forms['waitlistForm'];
+      var btn = document.getElementById("submitBtn");
+      var originalText = btn.innerText;
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        
         btn.disabled = true;
         btn.innerText = "Processing...";
         btn.style.opacity = "0.7";
-        google.script.run
-          .withSuccessHandler(function(response) {
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => {
+             // SUCCESS: Hide form, show message
              document.getElementById("form-content").classList.add("hidden");
              document.getElementById("success-msg").classList.remove("hidden");
              document.getElementById("success-msg").scrollIntoView({behavior: "smooth"});
           })
-          .withFailureHandler(function(err) {
-             console.error(err);
-             alert("Error: " + err);
+          .catch(error => {
+             // ERROR: Alert user
+             console.error('Error!', error.message);
+             alert("Error! Please check your internet connection and try again.");
              btn.disabled = false;
-             btn.innerText = origText;
+             btn.innerText = originalText;
              btn.style.opacity = "1";
-          })
-          .processForm(form);
-      }
+          });
+      });
     </script>
   </body>
 </html>
