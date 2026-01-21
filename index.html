@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      /* --- GLOBAL RESET: Prevents width calculation errors --- */
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --text-main: #222222; 
+        --text-muted: #555555;
+        --accent: #1a1a1a;
+        --bg: #fdfdfd; 
+        --input-border: #cccccc;
+        --focus-color: #000000;
+      }
+      
+      body { 
+        font-family: 'Inter', sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        color: var(--text-main); 
+        background-color: var(--bg); 
+        font-size: 19px; 
+        line-height: 1.6; 
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden; /* Prevents horizontal scroll */
+      }
+      
+      .content-wrapper {
+        max-width: 700px; 
+        margin: 0 auto;
+        padding: 80px 24px 60px;
+        width: 100%;
+      }
+
+      h1 {
+        font-family: 'Merriweather', serif;
+        font-weight: 900; 
+        font-size: 2.2rem;
+        line-height: 1.25;
+        margin-bottom: 30px;
+        color: var(--accent);
+        letter-spacing: -0.5px;
+        text-align: left;
+      }
+
+      p {
+        margin-bottom: 20px;
+        font-weight: 400;
+        color: #333;
+        text-align: justify; 
+      }
+
+      .emphasis {
+        color: #000;
+        font-weight: 600;
+      }
+
+      .intro-block {
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 30px;
+        margin-bottom: 50px;
+      }
+
+      /* DESKTOP IMAGE LAYOUT */
+      .image-row {
+        display: flex;
+        justify-content: center; 
+        gap: 20px; 
+        margin: 40px auto; 
+        flex-direction: row; 
+      }
+
+      .watch-image {
+        max-width: 48%; 
+        height: auto;
+        border-radius: 8px;
+        object-fit: contain;
+      }
+
+      .content-divider {
+        border-bottom: 1px solid #eaeaea;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+      }
+      
+      .time-label {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #666;
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+      }
+
+      .time-label.sos-label {
+        color: #d32f2f;
+        font-weight: 900;
+      }
+
+      .activity-title {
+        font-family: 'Merriweather', serif;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #000;
+        display: block;
+        margin-bottom: 8px;
+        text-align: left;
+      }
+
+      /* Desktop Form Section */
+      .form-section {
+        margin-top: 60px;
+        padding-top: 50px;
+        background: #f9f9f9;
+        /* Desktop "Full Bleed" effect */
+        margin-left: -24px;
+        margin-right: -24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        border-top: 1px solid #eaeaea;
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .form-header h3 {
+        font-family: 'Merriweather', serif;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+      
+      .form-header p { text-align: center; }
+
+      .form-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .form-group { margin-bottom: 25px; }
+      
+      label { 
+        display: block; 
+        font-size: 0.8rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1.2px;
+        margin-bottom: 8px; 
+        color: #555;
+        font-weight: 600;
+        text-align: left;
+      }
+
+      input, select, textarea { 
+        width: 100%; 
+        padding: 14px 0; 
+        border: none;
+        border-bottom: 2px solid var(--input-border);
+        font-size: 1rem; 
+        color: #000;
+        background: transparent;
+        transition: all 0.3s;
+        border-radius: 0;
+        font-family: 'Inter', sans-serif;
+      }
+
+      input:focus, select:focus, textarea:focus { 
+        outline: none; 
+        border-bottom: 2px solid var(--focus-color); 
+        background-color: rgba(0,0,0,0.02);
+      }
+
+      button.submit-btn { 
+        background-color: #000; 
+        color: white; 
+        border: none; 
+        padding: 20px 30px; 
+        font-size: 1rem; 
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 600; 
+        cursor: pointer; 
+        width: 100%; 
+        margin-top: 15px;
+        transition: opacity 0.3s;
+        border-radius: 4px;
+      }
+      
+      button.submit-btn:hover { opacity: 0.85; }
+
+      button.text-cta {
+        max-width: 300px;
+        display: block;
+        margin: 30px auto; 
+      }
+      
+      .disclaimer { 
+        font-size: 0.75rem; 
+        color: #888; 
+        text-align: center; 
+        margin-top: 20px; 
+      }
+
+      .hidden { display: none; }
+      
+      .success-message { text-align: center; padding: 60px 0; }
+      .success-message h2 { font-family: 'Merriweather', serif; font-size: 2rem; margin-top: 0;}
+
+      /* --- MOBILE OPTIMIZATION RULES --- */
+      @media (max-width: 600px) {
+        body { font-size: 17px; } 
+        
+        .content-wrapper { 
+          padding: 30px 20px 40px; 
+          overflow-x: hidden;
+        }
+        
+        h1 { 
+          font-size: 1.7rem; 
+          line-height: 1.2;
+        }
+        
+        .image-row {
+          flex-direction: column;
+          align-items: center;
+          gap: 25px;
+        }
+        
+        .watch-image {
+          max-width: 75%; 
+          width: 75%;
+        }
+
+        /* SAFE MOBILE FORM FIX: Removed negative margins */
+        .form-section { 
+          margin-top: 40px;
+          /* Reset margins to 0 to prevent overflow */
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+          padding: 30px 20px;
+          border-radius: 8px; /* Adds nice rounded corners */
+        }
+        
+        .form-wrapper {
+          width: 100%;
+        }
+
+        input, select, textarea {
+          font-size: 16px; 
+          padding: 16px 0; 
+        }
+        
+        button.text-cta { max-width: 100%; }
+        button.submit-btn { padding: 22px 20px; } 
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="content-wrapper">
+      
+      <h1>A day in the life with kPhone: Connected, Safe, and Distraction-Free</h1>
+
+      <div class="intro-block">
+        <p class="emphasis">We know the struggle.</p>
+        <p>Between the morning rush, the traffic on the way to the office, and late meetings, it’s physically impossible to be there for every moment of your child's day.</p> 
+        <p>You want to stay connected, but handing a 7-year-old a standard smartphone feels like a dangerous move. You worry that a smartphone is a gateway to a world they aren't ready for yet: unrestricted social media, addictive games, and the dangers of the open internet.</p>
+        <p class="emphasis">You shouldn't have to choose between your peace of mind and your child’s innocence.</p>
+        <p>That is why we built <strong>kPhone</strong> (for kids ages 4 – 12).</p>
+        
+        <div class="image-row">
+            <img src="https://i.ibb.co/MDBC4C9Z/Gemini-Generated-Image-33nue733nue733nu.png" class="watch-image" alt="kPhone Watch View 2">
+        </div>
+      
+      </div>
+
+      <p>We designed the kPhone to be the perfect middle ground. It is an age-appropriate <strong>phone in a wearable design</strong> that gives kids the independence they crave, and parents the oversight they need.</p>
+      <p>With the kPhone, there are no browsers. No TikTok. No strangers sending friend requests. It is a closed ecosystem focused entirely on safety and family connection.</p>
+      
+      <p style="margin-top: 40px; margin-bottom: 40px; font-weight: 600; text-align: left;">Here is how the kPhone seamlessly fits into your family’s daily routine to give you total peace of mind:</p>
+
+      <div class="timeline-item">
+        <span class="time-label">8:00 AM</span>
+        <span class="activity-title">School Without Distractions (Focus Mode)</span>
+        <p>You drop them off at school knowing their education comes first. Through your kPhone’s parent app, you have scheduled <strong>Focus Mode</strong> to activate automatically during school hours. Calls, messaging and games are disabled. It becomes a simple device that only tells the time, ensuring your child pays attention to their teacher, not a screen.</p>
+      </div>
+
+      <div class="timeline-item">
+        <span class="time-label">2:30 PM</span>
+        <span class="activity-title">The Journey Home (Live Location)</span>
+        <p>School is over. You are still at the office, but you don't have to guess if the school bus has left. You open the app and check their Live Location on the map. You can see exactly where they are in real-time.</p>
+      </div>
+
+      <div class="timeline-item">
+        <span class="time-label">3:00 PM</span>
+        <span class="activity-title">Checking In (Two-Way Voice & Messaging)</span>
+        <p>You see that they’ve arrived home. You send a quick voice note: "Your food is in the cooler. Don’t forget to do your assignment." They reply instantly from their wrist. No missed calls because the phone was "buried in the bag."</p>
+        <p>When they need to remind you to grab their favourite snack on your way home, you're only a call away on their kPhone. And you can rest easy knowing they can only talk to contacts you've approved from the parent app, keeping them safe from strangers and spam.</p>
+      </div>
+
+      <div class="timeline-item">
+        <span class="time-label">4:00 PM</span>
+        <span class="activity-title">The Instinctive Check-In (Discreet Listen-In)</span>
+        <p>Worried about who they are hanging out with or the environment they are in? The <strong>Discreet Listen-In</strong> feature allows you to listen to their immediate surroundings in real-time without notifying them, giving you that extra layer of assurance that they are safe.</p>
+      </div>
+
+      <div class="timeline-item">
+        <span class="time-label sos-label">SOS</span>
+        <span class="activity-title">The Just in Case Moment (Emergency Contact)</span>
+        <p>We hope they never need it, but if they ever feel unsafe or lost, holding a single button triggers the <strong>SOS Emergency</strong> function. It immediately alerts you via SMS with their live location and automatically dials their emergency contacts until someone answers.</p>
+      </div>
+
+      <div class="content-divider"></div>
+
+      <div>
+        <p><strong>The kPhone is the balance you have been looking for.</strong> It gives your child the independence to explore the world, while giving you the oversight to ensure they are safe doing it.</p>
+        <p>We are preparing to launch the kPhone in Nigeria soon. Join the waitlist today to secure a safer start for your child.</p>
+        
+        <p style="margin-top: 30px;">Here’s to smarter, safer parenting.</p>
+        
+        <button class="submit-btn text-cta" onclick="document.getElementById('form-content').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
+      </div>
+
+    </div>
+
+    <div class="form-section">
+      
+      <div id="form-content" class="form-wrapper">
+        <div class="form-header">
+          <h3>Join the Waitlist</h3>
+          <p>Secure a safer start for your child.</p>
+        </div>
+
+        <form id="waitlistForm" onsubmit="handleFormSubmit(event)">
+          
+          <div class="form-group">
+            <label>Parent's Full Name</label>
+            <input type="text" name="fullName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" name="location" required>
+          </div>
+
+          <div class="form-group">
+            <label>How many devices are you interested in?</label>
+            <select name="childCount">
+              <option value="1">1 Device</option>
+              <option value="2">2 Devices</option>
+              <option value="3">3 Devices</option>
+              <option value="4+">4+ Devices</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>What's your biggest child safety concern? (Optional)</label>
+            <textarea name="concern" rows="2"></textarea>
+          </div>
+
+          <button type="submit" id="submitBtn" class="submit-btn">Join Waitlist</button>
+          <p class="disclaimer">By joining, you agree to receive updates. Unsubscribe anytime.</p>
+        </form>
+      </div>
+
+      <div id="success-msg" class="success-message hidden">
+        <h2>You are on the list.</h2>
+        <p>Thank you for joining the kPhone movement.</p>
+        <p>We will reach out as soon as we launch.</p>
+      </div>
+
+    </div>
+
+    <script>
+      function handleFormSubmit(e) {
+        e.preventDefault(); 
+        var form = e.target;
+        var btn = document.getElementById("submitBtn");
+        var origText = btn.innerText;
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+        btn.style.opacity = "0.7";
+        google.script.run
+          .withSuccessHandler(function(response) {
+             document.getElementById("form-content").classList.add("hidden");
+             document.getElementById("success-msg").classList.remove("hidden");
+             document.getElementById("success-msg").scrollIntoView({behavior: "smooth"});
+          })
+          .withFailureHandler(function(err) {
+             console.error(err);
+             alert("Error: " + err);
+             btn.disabled = false;
+             btn.innerText = origText;
+             btn.style.opacity = "1";
+          })
+          .processForm(form);
+      }
+    </script>
+  </body>
+</html>
